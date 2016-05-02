@@ -1,0 +1,35 @@
+@import 'mixin';
+
+.form{
+	@include lead;
+
+	label{
+		display: block;
+	}
+
+	input{
+		@include formControl(2em, 90%, 0);
+		
+		&.btn{
+			@include formControl(3em,7em, 0);
+			@include alert($success, #fff);
+		}
+	}
+
+	textarea{
+		@include formControl(7em, 90%, 5px);
+	}
+
+}
+
+.alert-success{
+	@include formControl(3em, 80%, 5px);
+	@include alert($success, #fff);
+	margin: 0 auto;
+}
+
+.alert-danger{
+	@include formControl(3em, 80%, 5px);
+	@include alert($danger, #888);
+	margin: 0 auto;
+}

@@ -1,0 +1,54 @@
+@mixin inLineBlock{
+	display: inline-block;
+}
+
+@mixin formControl($height, $width, $paddingTop){
+	height: $height;
+	width: $width;
+	border-radius: 7px;
+	font-size: 14px;
+	padding: $paddingTop 0.7em;
+}
+
+@mixin alert($type, $color){
+	background:$type;
+	border: none;
+	color: $color;
+}
+
+@mixin imageHandler{
+	width:$fullPerCent;
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-position:center;
+}
+
+@mixin lead{
+	margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+@mixin info{
+	font-size: 1em;
+    text-align: justify;
+    font-weight: 400;
+}
+
+@mixin contentPage{
+	padding: 0 20px;
+
+	h1{
+		font-size: 36px;
+		padding-top: 2.5em;	
+		margin-bottom: 0.5em;
+	}
+
+	p{
+		@include lead;
+		&.info{
+			@include info;
+		}
+	}
+}

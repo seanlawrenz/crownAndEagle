@@ -1,0 +1,48 @@
+@import 'mixin';
+
+.hero{
+	@include imageHandler;
+	background-image:url("../img/10note.jpg");
+	height:225px;
+	font-family: $heroText;
+	h1, p{
+		position: relative;
+		color: #fff;
+	}
+
+	h1{
+		padding-top: 2em;
+		font-weight: 600;
+		font-size: 36px;
+	}
+	p{
+		padding-top:1em;
+	}
+}
+
+.CTA{
+	background:#fff;
+	@include contentPage;
+
+	h1{
+		color: $bodyText;
+		padding-top:1.5em;
+	}
+}
+
+.about-us{
+	background:#F0F8FF;
+	@include contentPage;
+}
+
+.appraisals{
+	background: $bodyColor;
+	@include contentPage;
+}
+
+.contact-us{
+	@include imageHandler;
+	background-image:url('../img/james-monroe.jpg');
+	@include contentPage;
+	padding: 0;
+}

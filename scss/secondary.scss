@@ -1,0 +1,29 @@
+@import 'mixin';
+
+.secondary{
+	a{
+		text-decoration: none;
+		color: inherit;
+		@include lead;
+	}
+
+	h2{
+		color: $bodyText;
+	}
+
+	.address{
+
+		a{
+			
+		}
+
+	}
+
+	.open-hours{
+		margin-top: 1.5em;
+	}
+
+	.phone{
+
+	}
+}

@@ -1,0 +1,74 @@
+@import 'mixin';
+
+.nav{
+    width: $fullPerCent;
+    position:fixed;
+    z-index: 10;
+}
+
+ul{
+    &.topnav{
+        list-style-type: none;
+        margin: 0;
+        padding:0;
+        overflow: hidden;
+        background: $grey;
+        
+        li{
+            float: left;
+
+            a{
+                @include inLineBlock;
+                color: #000;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: 0.3s;
+                font-size: 17px;
+                
+                &:hover{
+                    background: darken($grey, 5%);
+                }
+
+                &.current{
+                    background: darken($grey, 10%);
+                }
+            }
+
+            &#icon{
+                display: none;
+
+                @media screen and (max-width:$smallBreak){
+                    float:right;
+                    @include inLineBlock;
+                }
+            }
+
+            @media screen and (max-width:$smallBreak){
+                &:not(:first-child){
+                    display: none;
+                }
+            }
+        }
+    
+        &.responsive{
+            position: relative;
+
+            li{
+                &#icon{
+                    position:absolute;
+                    right: 0;
+                    top: 0;
+                }
+
+                float: none;
+                display: inline;
+
+                a{
+                    display: block;
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
