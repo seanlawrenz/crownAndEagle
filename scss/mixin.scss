@@ -52,3 +52,62 @@
 		}
 	}
 }
+
+@mixin infoBreak{
+	@media screen and (min-width:$largeBreak){
+		padding: 0 10%;
+	}
+}
+
+
+@mixin columnBreak{
+	@media screen and (min-width:$columnBreak){
+		@include inLineBlock;
+		width: 32%;
+		vertical-align: top;
+		margin-top: 0;
+
+		img{
+			@include inLineBlock;
+			padding-right: 0.5em;
+		}
+
+		h2{
+			@include inLineBlock;
+		}
+
+		a{
+			display: block;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

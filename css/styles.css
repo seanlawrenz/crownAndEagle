@@ -43,6 +43,9 @@ table {
   background-image: url("../img/10note.jpg");
   height: 225px;
   font-family: "Raleway", sans-serif; }
+  @media screen and (min-width: 800px) {
+    .hero {
+      height: 275px; } }
   .hero h1, .hero p {
     position: relative;
     color: #fff; }
@@ -50,6 +53,10 @@ table {
     padding-top: 2em;
     font-weight: 600;
     font-size: 36px; }
+    @media screen and (min-width: 800px) {
+      .hero h1 {
+        padding-top: 2.5em;
+        font-size: 42px; } }
   .hero p {
     padding-top: 1em; }
 
@@ -69,6 +76,9 @@ table {
       font-size: 1em;
       text-align: justify;
       font-weight: 400; }
+  @media screen and (min-width: 800px) {
+    .CTA {
+      padding: 0 10%; } }
   .CTA h1 {
     color: #0066FF;
     padding-top: 1.5em; }
@@ -89,6 +99,9 @@ table {
       font-size: 1em;
       text-align: justify;
       font-weight: 400; }
+  @media screen and (min-width: 800px) {
+    .about-us {
+      padding: 0 10%; } }
 
 .appraisals {
   background: #f4f4f4;
@@ -106,6 +119,9 @@ table {
       font-size: 1em;
       text-align: justify;
       font-weight: 400; }
+  @media screen and (min-width: 800px) {
+    .appraisals {
+      padding: 0 10%; } }
 
 .contact-us {
   width: 100%;
@@ -176,6 +192,10 @@ ul.topnav {
         display: block;
         text-align: left; }
 
+@media screen and (min-width: 1034px) {
+  .secondary {
+    padding-top: 2em; } }
+
 .secondary a {
   text-decoration: none;
   color: inherit;
@@ -187,8 +207,49 @@ ul.topnav {
 .secondary h2 {
   color: #0066FF; }
 
+@media screen and (min-width: 1034px) {
+  .secondary .address {
+    display: inline-block;
+    width: 32%;
+    vertical-align: top;
+    margin-top: 0; }
+    .secondary .address img {
+      display: inline-block;
+      padding-right: 0.5em; }
+    .secondary .address h2 {
+      display: inline-block; }
+    .secondary .address a {
+      display: block; } }
+
 .secondary .open-hours {
   margin-top: 1.5em; }
+  @media screen and (min-width: 1034px) {
+    .secondary .open-hours {
+      display: inline-block;
+      width: 32%;
+      vertical-align: top;
+      margin-top: 0; }
+      .secondary .open-hours img {
+        display: inline-block;
+        padding-right: 0.5em; }
+      .secondary .open-hours h2 {
+        display: inline-block; }
+      .secondary .open-hours a {
+        display: block; } }
+
+@media screen and (min-width: 1034px) {
+  .secondary .phone {
+    display: inline-block;
+    width: 32%;
+    vertical-align: top;
+    margin-top: 0; }
+    .secondary .phone img {
+      display: inline-block;
+      padding-right: 0.5em; }
+    .secondary .phone h2 {
+      display: inline-block; }
+    .secondary .phone a {
+      display: block; } }
 
 .form {
   margin-bottom: 20px;
@@ -217,14 +278,14 @@ ul.topnav {
     width: 90%;
     border-radius: 7px;
     font-size: 14px;
-    padding: 0 0.7em; }
+    padding: 5px 0.7em; }
 
 .alert-success {
   height: 3em;
   width: 80%;
   border-radius: 7px;
   font-size: 14px;
-  padding: 0 0.7em;
+  padding: 5px 0.7em;
   background: #3e8f3e;
   border: none;
   color: #fff;
@@ -235,7 +296,7 @@ ul.topnav {
   width: 80%;
   border-radius: 7px;
   font-size: 14px;
-  padding: 0 0.7em;
+  padding: 5px 0.7em;
   background: #e4b9b9;
   border: none;
   color: #888;

@@ -5,6 +5,10 @@
 	background-image:url("../img/10note.jpg");
 	height:225px;
 	font-family: $heroText;
+
+	@media screen and (min-width:$largeBreak){
+		height: 275px;
+	}
 	h1, p{
 		position: relative;
 		color: #fff;
@@ -14,6 +18,11 @@
 		padding-top: 2em;
 		font-weight: 600;
 		font-size: 36px;
+
+		@media screen and (min-width:$largeBreak){
+			padding-top:2.5em;
+			font-size: 42px;
+		}
 	}
 	p{
 		padding-top:1em;
@@ -23,6 +32,7 @@
 .CTA{
 	background:#fff;
 	@include contentPage;
+	@include infoBreak;
 
 	h1{
 		color: $bodyText;
@@ -33,11 +43,13 @@
 .about-us{
 	background:#F0F8FF;
 	@include contentPage;
+	@include infoBreak;
 }
 
 .appraisals{
 	background: $bodyColor;
 	@include contentPage;
+	@include infoBreak;
 }
 
 .contact-us{

@@ -1,6 +1,10 @@
 @import 'mixin';
 
 .secondary{
+	@media screen and (min-width:$columnBreak){
+			padding-top: 2em;
+		}
+		
 	a{
 		text-decoration: none;
 		color: inherit;
@@ -12,18 +16,17 @@
 	}
 
 	.address{
-
-		a{
-			
-		}
-
+		@include columnBreak;
 	}
 
 	.open-hours{
 		margin-top: 1.5em;
+		@include columnBreak;
 	}
 
 	.phone{
+		@include columnBreak;
 
 	}
 }
+
