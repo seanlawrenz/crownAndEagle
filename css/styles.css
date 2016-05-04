@@ -130,7 +130,8 @@ table {
   background-position: center;
   background-image: url("../img/james-monroe.jpg");
   padding: 0 20px;
-  padding: 0; }
+  padding: 0;
+  color: #fff; }
   .contact-us h1 {
     font-size: 36px;
     padding-top: 2.5em;
@@ -172,11 +173,11 @@ ul.topnav {
         background: #c1c1c1; }
     ul.topnav li#icon {
       display: none; }
-      @media screen and (max-width: 550px) {
+      @media screen and (max-width: 667px) {
         ul.topnav li#icon {
           float: right;
           display: inline-block; } }
-    @media screen and (max-width: 550px) {
+    @media screen and (max-width: 667px) {
       ul.topnav li:not(:first-child) {
         display: none; } }
   ul.topnav.responsive {
