@@ -273,7 +273,8 @@ ul.topnav {
       padding: 0 0.7em;
       background: #3e8f3e;
       border: none;
-      color: #fff; }
+      color: #fff;
+      -webkit-appearance: none; }
   .form textarea {
     height: 7em;
     width: 90%;

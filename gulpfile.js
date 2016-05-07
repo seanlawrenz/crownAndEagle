@@ -27,6 +27,7 @@ gulp.task("concatScripts", function() {
 
 gulp.task("minifyScripts", ["concatScripts"], function() {
   return gulp.src("js/app.js")
+    .pipe(maps.init())
     .pipe(uglify())
     .pipe(rename('app.min.js'))
     .pipe(gulp.dest('js'));

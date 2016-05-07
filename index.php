@@ -25,7 +25,7 @@
 			<h1>We like shiny things too!</h1>
 			</br>
 			<p>Serving Clintonville since 1984</p>
-			<p class="info">Crown and Eagle specializes in unique and rare materials. We specialize in appraising Our staff has over 50 years experience with precious metals, exotic stamps, and coins.</p>
+			<p class="info">Crown and Eagle specializes in unique and rare materials. We specialize in appraising. Our staff has over 50 years experience with precious metals, exotic stamps, and coins.</p>
 			<div class="secondary">
 				<div class="address">
 					<img src="img/pin.png"><h2>Location</h2>
