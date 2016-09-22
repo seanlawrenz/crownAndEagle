@@ -1,32 +1,23 @@
-@import 'mixin';
-
 .secondary{
-	@media screen and (min-width:$columnBreak){
-			padding-top: 2em;
-		}
-		
-	a{
-		text-decoration: none;
-		color: inherit;
-		@include lead;
-	}
-
-	h2{
-		color: $bodyText;
-	}
-
-	.address{
-		@include columnBreak;
-	}
-
-	.open-hours{
-		margin-top: 1.5em;
-		@include columnBreak;
-	}
-
-	.phone{
-		@include columnBreak;
-
+	margin: 1em auto;
+	div{
+		margin-top: 1em;
+		text-align: center;
 	}
 }
 
+#aboutus{
+	background: $lightBlue;
+}
+
+#appraisals{
+	background: $bodyColor;
+}
+
+#contact{
+	@include imageHandler;
+	background-image: url('../img/james-monroe.jpg');
+	p{
+		color: #fff;
+	}
+}

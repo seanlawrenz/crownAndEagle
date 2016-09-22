@@ -1,73 +1,75 @@
-@import 'mixin';
-
 .nav{
-    width: $fullPerCent;
-    position:fixed;
-    z-index: 10;
+    ul{
+        float: left;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    li{
+        display: none;
+        &.menu-open{
+            display: block;
+        }
+    }
+
+    a{
+        color: #000;
+        display: block;
+        padding: 14px 16px;
+        text-align: left;
+        font-size: 17px;
+
+        &:hover{
+            background: darken($grey, 5%);
+        }
+
+        &.current{
+            background: darken($grey, 10%);
+        }
+    }
 }
 
-ul{
-    &.topnav{
-        list-style-type: none;
-        margin: 0;
-        padding:0;
-        overflow: hidden;
-        background: $grey;
-        
-        li{
-            float: left;
+#hamburger-menu{
+    height: 2em;
+    width: 2em;
+    margin: 0.75em 1em 0;
+    padding: 0;
+    position: relative;
+    float: right;
+    @include animationRotate(0deg);
+    @include animationTime(0.5s);
 
-            a{
-                @include inLineBlock;
-                color: #000;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                transition: 0.3s;
-                font-size: 17px;
-                
-                &:hover{
-                    background: darken($grey, 5%);
-                }
+    span{
+        display: block;
+        height: 4px;
+        width: 100%;
+        position: absolute;
+        background: $spanColor;
+        border-radius: 3px;
+        opacity: 1;
+        left: 0;
+        @include animationRotate(0deg);
+        @include animationTime(0.25s);
 
-                &.current{
-                    background: darken($grey, 10%);
-                }
+        &:nth-child(1){top: 0em;}
+        &:nth-child(2){top: 0.5em;}
+        &:nth-child(3){top: 1em;}
+    }
+
+    //Animation
+    &.menu-open{
+        span{
+            &:nth-child(1){
+                @include animationRotate(135deg);
+                top: 0.5em;
             }
-
-            &#icon{
-                display: none;
-
-                @media screen and (max-width:$smallBreak){
-                    float:right;
-                    @include inLineBlock;
-                }
+            &:nth-child(2){
+                opacity: 0;
+                left: -3em;
             }
-
-            @media screen and (max-width:$smallBreak){
-                &:not(:first-child){
-                    display: none;
-                }
-            }
-        }
-    
-        &.responsive{
-            position: relative;
-
-            li{
-                &#icon{
-                    position:absolute;
-                    right: 0;
-                    top: 0;
-                }
-
-                float: none;
-                display: inline;
-
-                a{
-                    display: block;
-                    text-align: left;
-                }
+            &:nth-child(3){
+                top: 0.5em;
+                @include animationRotate(-135deg);
             }
         }
     }

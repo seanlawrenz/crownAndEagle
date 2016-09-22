@@ -3,11 +3,14 @@
 }
 
 @mixin formControl($height, $width, $paddingTop){
+	box-sizing: border-box;
 	height: $height;
 	width: $width;
 	border-radius: 7px;
 	font-size: 14px;
 	padding: $paddingTop 0.7em;
+	border: none;
+	-webkit-appearance:none;
 }
 
 @mixin alert($type, $color){
@@ -17,7 +20,7 @@
 }
 
 @mixin imageHandler{
-	width:$fullPerCent;
+	background:#fff;
 	background-repeat:no-repeat;
 	background-size:cover;
 	background-position:center;
@@ -79,6 +82,35 @@
 		a{
 			display: block;
 		}
+	}
+}
+
+//animation for menu
+@mixin animationRotate($deg){
+	-webkit-transform: rotate($deg);
+	-moz-transform: rotate($deg);
+	-o-transform: rotate($deg);
+	transform: rotate($deg);
+}
+
+@mixin animationTime($time){
+	-webkit-transiition: $time ease-in-out;
+	-moz-transiition: $time ease-in-out;
+	-o-transiition: $time ease-in-out;
+	transition: $time ease-in-out;
+}
+
+$largeDesktop: 1024px;
+
+@mixin tablet{
+	@media screen and (min-width:$smallBreak) and (max-width:$largeDesktop){
+		@content;
+	}
+}
+
+@mixin largeDesktop{
+	@media screen and (min-width:$largeDesktop){
+		@content;
 	}
 }
 

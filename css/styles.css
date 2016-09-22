@@ -1,315 +1,247 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,600);
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  vertical-align: baseline; }
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  display: block; }
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
 
 body {
-  line-height: 1; }
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased; }
 
-ol, ul {
-  list-style: none; }
+h1, h2, h3, h4, p, blockquote, figure, ol, ul {
+  margin: 0;
+  padding: 0; }
 
-blockquote, q {
-  quotes: none; }
+main, li {
+  display: block; }
 
-blockquote:before, blockquote:after {
-  content: '';
-  content: none; }
+strong {
+  font-weight: bold; }
 
-q:before, q:after {
-  content: '';
-  content: none; }
+a, button {
+  color: inherit;
+  -webkit-transiition: 0.3 ease-in-out;
+  -moz-transiition: 0.3 ease-in-out;
+  -o-transiition: 0.3 ease-in-out;
+  transition: 0.3 ease-in-out; }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
+a {
+  text-decoration: none; }
+
+button {
+  overflow: hidden;
+  border: none;
+  font: inherit;
+  -webkit-font-smoothing: inherit;
+  background: none;
+  cursor: pointer; }
+
+::-moz-focus-inner {
+  padding: 0;
+  border: 0; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px; }
+
+h1, h2, h3 {
+  font-family: 'Cantarell', sans-serif;
+  font-weight: 400;
+  text-align: center; }
+
+.nav {
+  background: #dadada;
+  position: fixed;
+  min-height: 3em;
+  width: 100%;
+  z-index: 10; }
 
 .hero {
-  width: 100%;
+  background: #fff;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-image: url("../img/10note.jpg");
-  height: 225px;
-  font-family: "Raleway", sans-serif; }
-  @media screen and (min-width: 800px) {
-    .hero {
-      height: 275px; } }
-  .hero h1, .hero p {
-    position: relative;
-    color: #fff; }
+  height: 175px;
+  padding-top: 3em; }
   .hero h1 {
-    padding-top: 2em;
-    font-weight: 600;
-    font-size: 36px; }
-    @media screen and (min-width: 800px) {
-      .hero h1 {
-        padding-top: 2.5em;
-        font-size: 42px; } }
+    color: #fff;
+    font-size: 40px;
+    font-weight: 400;
+    margin: 1em auto 0.25em; }
   .hero p {
-    padding-top: 1em; }
+    color: #fff;
+    font-size: 1.1em;
+    text-align: center; }
+
+.container {
+  padding: 3em 1.5em; }
+  .container p {
+    margin: 1em 0; }
+    .container p.info {
+      font-style: italic;
+      text-align: center; }
 
 .CTA {
+  padding: 0 1.5em;
+  margin-top: 1em; }
+  .CTA h1, .CTA h2 {
+    color: #0066FF; }
+
+.nav ul {
+  float: left;
+  overflow: hidden;
+  width: 100%; }
+
+.nav li {
+  display: none; }
+  .nav li.menu-open {
+    display: block; }
+
+.nav a {
+  color: #000;
+  display: block;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 17px; }
+  .nav a:hover {
+    background: #cecece; }
+  .nav a.current {
+    background: #c1c1c1; }
+
+#hamburger-menu {
+  height: 2em;
+  width: 2em;
+  margin: 0.75em 1em 0;
+  padding: 0;
+  position: relative;
+  float: right;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transiition: 0.5s ease-in-out;
+  -moz-transiition: 0.5s ease-in-out;
+  -o-transiition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out; }
+  #hamburger-menu span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    background: #57595d;
+    border-radius: 3px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transiition: 0.25s ease-in-out;
+    -moz-transiition: 0.25s ease-in-out;
+    -o-transiition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out; }
+    #hamburger-menu span:nth-child(1) {
+      top: 0em; }
+    #hamburger-menu span:nth-child(2) {
+      top: 0.5em; }
+    #hamburger-menu span:nth-child(3) {
+      top: 1em; }
+  #hamburger-menu.menu-open span:nth-child(1) {
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+    top: 0.5em; }
+  #hamburger-menu.menu-open span:nth-child(2) {
+    opacity: 0;
+    left: -3em; }
+  #hamburger-menu.menu-open span:nth-child(3) {
+    top: 0.5em;
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    transform: rotate(-135deg); }
+
+.secondary {
+  margin: 1em auto; }
+  .secondary div {
+    margin-top: 1em;
+    text-align: center; }
+
+#aboutus {
+  background: #f0f8ff; }
+
+#appraisals {
+  background: #f4f4f4; }
+
+#contact {
   background: #fff;
-  padding: 0 20px; }
-  .CTA h1 {
-    font-size: 36px;
-    padding-top: 2.5em;
-    margin-bottom: 0.5em; }
-  .CTA p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.4; }
-    .CTA p.info {
-      font-size: 1em;
-      text-align: justify;
-      font-weight: 400; }
-  @media screen and (min-width: 800px) {
-    .CTA {
-      padding: 0 10%; } }
-  .CTA h1 {
-    color: #0066FF;
-    padding-top: 1.5em; }
-
-.about-us {
-  background: #F0F8FF;
-  padding: 0 20px; }
-  .about-us h1 {
-    font-size: 36px;
-    padding-top: 2.5em;
-    margin-bottom: 0.5em; }
-  .about-us p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.4; }
-    .about-us p.info {
-      font-size: 1em;
-      text-align: justify;
-      font-weight: 400; }
-  @media screen and (min-width: 800px) {
-    .about-us {
-      padding: 0 10%; } }
-
-.appraisals {
-  background: #f4f4f4;
-  padding: 0 20px; }
-  .appraisals h1 {
-    font-size: 36px;
-    padding-top: 2.5em;
-    margin-bottom: 0.5em; }
-  .appraisals p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.4; }
-    .appraisals p.info {
-      font-size: 1em;
-      text-align: justify;
-      font-weight: 400; }
-  @media screen and (min-width: 800px) {
-    .appraisals {
-      padding: 0 10%; } }
-
-.contact-us {
-  width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-image: url("../img/james-monroe.jpg");
-  padding: 0 20px;
-  padding: 0;
-  color: #fff; }
-  .contact-us h1 {
-    font-size: 36px;
-    padding-top: 2.5em;
-    margin-bottom: 0.5em; }
-  .contact-us p {
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.4; }
-    .contact-us p.info {
-      font-size: 1em;
-      text-align: justify;
-      font-weight: 400; }
-
-.nav {
-  width: 100%;
-  position: fixed;
-  z-index: 10; }
-
-ul.topnav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: #dadada; }
-  ul.topnav li {
-    float: left; }
-    ul.topnav li a {
-      display: inline-block;
-      color: #000;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-      transition: 0.3s;
-      font-size: 17px; }
-      ul.topnav li a:hover {
-        background: #cecece; }
-      ul.topnav li a.current {
-        background: #c1c1c1; }
-    ul.topnav li#icon {
-      display: none; }
-      @media screen and (max-width: 667px) {
-        ul.topnav li#icon {
-          float: right;
-          display: inline-block; } }
-    @media screen and (max-width: 667px) {
-      ul.topnav li:not(:first-child) {
-        display: none; } }
-  ul.topnav.responsive {
-    position: relative; }
-    ul.topnav.responsive li {
-      float: none;
-      display: inline; }
-      ul.topnav.responsive li#icon {
-        position: absolute;
-        right: 0;
-        top: 0; }
-      ul.topnav.responsive li a {
-        display: block;
-        text-align: left; }
-
-@media screen and (min-width: 1034px) {
-  .secondary {
-    padding-top: 2em; } }
-
-.secondary a {
-  text-decoration: none;
-  color: inherit;
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.4; }
-
-.secondary h2 {
-  color: #0066FF; }
-
-@media screen and (min-width: 1034px) {
-  .secondary .address {
-    display: inline-block;
-    width: 32%;
-    vertical-align: top;
-    margin-top: 0; }
-    .secondary .address img {
-      display: inline-block;
-      padding-right: 0.5em; }
-    .secondary .address h2 {
-      display: inline-block; }
-    .secondary .address a {
-      display: block; } }
-
-.secondary .open-hours {
-  margin-top: 1.5em; }
-  @media screen and (min-width: 1034px) {
-    .secondary .open-hours {
-      display: inline-block;
-      width: 32%;
-      vertical-align: top;
-      margin-top: 0; }
-      .secondary .open-hours img {
-        display: inline-block;
-        padding-right: 0.5em; }
-      .secondary .open-hours h2 {
-        display: inline-block; }
-      .secondary .open-hours a {
-        display: block; } }
-
-@media screen and (min-width: 1034px) {
-  .secondary .phone {
-    display: inline-block;
-    width: 32%;
-    vertical-align: top;
-    margin-top: 0; }
-    .secondary .phone img {
-      display: inline-block;
-      padding-right: 0.5em; }
-    .secondary .phone h2 {
-      display: inline-block; }
-    .secondary .phone a {
-      display: block; } }
+  background-image: url("../img/james-monroe.jpg"); }
+  #contact p {
+    color: #fff; }
 
 .form {
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.4; }
+  margin: 1.5em 0; }
   .form label {
-    display: block; }
+    display: block;
+    color: #fff;
+    padding-bottom: 0.5em; }
   .form input {
-    height: 2em;
-    width: 90%;
+    box-sizing: border-box;
+    height: 4em;
+    width: 100%;
     border-radius: 7px;
     font-size: 14px;
-    padding: 0 0.7em; }
-    .form input.btn {
-      height: 3em;
-      width: 7em;
-      border-radius: 7px;
-      font-size: 14px;
-      padding: 0 0.7em;
-      background: #3e8f3e;
-      border: none;
-      color: #fff;
-      -webkit-appearance: none; }
+    padding: 1.5em 0.7em;
+    border: none;
+    -webkit-appearance: none; }
+    .form input[type="submit"] {
+      background: #3E8F3E;
+      color: #fff; }
   .form textarea {
+    box-sizing: border-box;
     height: 7em;
-    width: 90%;
+    width: 100%;
     border-radius: 7px;
     font-size: 14px;
-    padding: 5px 0.7em; }
+    padding: 1.5em 0.7em;
+    border: none;
+    -webkit-appearance: none; }
 
 .alert-success {
+  box-sizing: border-box;
   height: 3em;
   width: 80%;
   border-radius: 7px;
   font-size: 14px;
   padding: 5px 0.7em;
+  border: none;
+  -webkit-appearance: none;
   background: #3e8f3e;
   border: none;
   color: #fff;
   margin: 0 auto; }
 
 .alert-danger {
+  box-sizing: border-box;
   height: 3em;
   width: 80%;
   border-radius: 7px;
   font-size: 14px;
   padding: 5px 0.7em;
+  border: none;
+  -webkit-appearance: none;
   background: #e4b9b9;
   border: none;
   color: #888;
   margin: 0 auto; }
-
-body {
-  font-family: 'Open Sans', sans-serif;
-  text-align: center;
-  background: #f4f4f4; }
-
-.clear {
-  clear: both; }
 
 /*# sourceMappingURL=styles.css.map */

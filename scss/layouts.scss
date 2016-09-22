@@ -1,61 +1,61 @@
-@import 'mixin';
+body{
+	font-family: 'Roboto', sans-serif;;
+	font-size: 14px;
+}
+
+h1, h2, h3{
+	font-family: 'Cantarell', sans-serif;
+	font-weight:400;
+	text-align: center;
+}
+
+//nav positioning 
+.nav {
+	background: $grey;
+	position: fixed;
+	min-height: 3em;
+	width: 100%;
+	z-index: 10;
+}
 
 .hero{
 	@include imageHandler;
-	background-image:url("../img/10note.jpg");
-	height:225px;
-	font-family: $heroText;
-
-	@media screen and (min-width:$largeBreak){
-		height: 275px;
-	}
-	h1, p{
-		position: relative;
-		color: #fff;
-	}
-
+	background-image: url('../img/10note.jpg');
+	height: 175px;
+	padding-top: 3em;
 	h1{
-		padding-top: 2em;
-		font-weight: 600;
-		font-size: 36px;
-
-		@media screen and (min-width:$largeBreak){
-			padding-top:2.5em;
-			font-size: 42px;
-		}
+		color: #fff;
+		font-size: 40px;
+		font-weight: 400;
+		margin: 1em auto 0.25em;
 	}
+
 	p{
-		padding-top:1em;
+		color: #fff;
+		font-size: 1.1em;
+		text-align: center;
+	}
+}
+
+.container{
+	padding: 3em 1.5em;
+
+	p{
+		margin: 1em 0;
+	
+		&.info{
+			font-style: italic;
+			text-align: center;
+		}
 	}
 }
 
 .CTA{
-	background:#fff;
-	@include contentPage;
-	@include infoBreak;
-
-	h1{
+	padding: 0 1.5em;
+	margin-top:1em;
+	h1, h2{
 		color: $bodyText;
-		padding-top:1.5em;
 	}
 }
 
-.about-us{
-	background:#F0F8FF;
-	@include contentPage;
-	@include infoBreak;
-}
 
-.appraisals{
-	background: $bodyColor;
-	@include contentPage;
-	@include infoBreak;
-}
-
-.contact-us{
-	@include imageHandler;
-	background-image:url('../img/james-monroe.jpg');
-	@include contentPage;
-	padding: 0;
-	color: #fff;
-}

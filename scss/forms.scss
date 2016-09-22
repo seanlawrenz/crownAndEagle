@@ -1,24 +1,25 @@
-@import 'mixin';
-
 .form{
-	@include lead;
+
+	margin: 1.5em 0;
 
 	label{
 		display: block;
+		color: #fff;
+		padding-bottom: 0.5em;
 	}
 
 	input{
-		@include formControl(2em, 90%, 0);
-		
-		&.btn{
-			@include formControl(3em,7em, 0);
-			@include alert($success, #fff);
-			-webkit-appearance: none;
+		@include formControl(4em, 100%, 1.5em);
+
+		&[type="submit"]{
+			background: #3E8F3E;
+			color: #fff;
 		}
+
 	}
 
 	textarea{
-		@include formControl(7em, 90%, 5px);
+		@include formControl(7em, 100%, 1.5em);
 	}
 
 }
