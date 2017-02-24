@@ -1,0 +1,30 @@
+{
+  "name": "crownandeagle",
+  "version": "1.5.0",
+  "description": "Website for crown and eagle",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect-php": "^0.0.8",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seanlawrenz/crownAndEagle.git"
+  },
+  "author": "sean lawrenz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seanlawrenz/crownAndEagle/issues"
+  },
+  "homepage": "https://github.com/seanlawrenz/crownAndEagle#readme"
+}
