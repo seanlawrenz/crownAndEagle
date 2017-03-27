@@ -536,59 +536,60 @@ $('#mainForm').submit(function(e){
 
 		//						FORM CONDITIONALS
 
-		//Hotel accommodation
-		if(accommodation.required === true){
-			if(accommodation.inputValue()){
-				checkInDate.required = true;
-				checkOutDate.required = true;
-				accommodation.required = false;
-			}else if(accommodation.inputValue() === false){
-				checkInDate.required = false;
-				checkOutDate.required = false;
-			}
-		}
-
-		//Travel accommodation
-		if(travelRequired.required === true){
-			if(travelRequired.inputValue() === true){
-				groundTransportationArrival.required = true;
-				groundTransportationDeparture.required = true;
-				travelRequired.required = false;
-			}else if(travelRequired.inputValue() === false){
-				groundTransportationArrival.required = false;
-				groundTransportationDeparture.required = false;
-			}
-		}
-
-		//						SPECIAL LOOKUPS OR EXCEPTIONS
-
-		//travel agreement
-		if($(travelAgreement.id).length){
-			if(travelRequired.inputValue() === true){
-				if(travelAgreement.inputValue() !== true){
-					error += '<li>' + travelAgreement.message + '</li>';
-					travelAgreement.removeFromValidateArray();
+		if(goingToEvent === true){
+			//Hotel accommodation
+			if(accommodation.required === true){
+				if(accommodation.inputValue()){
+					checkInDate.required = true;
+					checkOutDate.required = true;
+					accommodation.required = false;
+				}else if(accommodation.inputValue() === false){
+					checkInDate.required = false;
+					checkOutDate.required = false;
 				}
 			}
-		}
 
-		//flight Check
-		if($(flightBooking.id).length){
-			flightBooking.booked();
-		}
+			//Travel accommodation
+			if(travelRequired.required === true){
+				if(travelRequired.inputValue() === true){
+					groundTransportationArrival.required = true;
+					groundTransportationDeparture.required = true;
+					travelRequired.required = false;
+				}else if(travelRequired.inputValue() === false){
+					groundTransportationArrival.required = false;
+					groundTransportationDeparture.required = false;
+				}
+			}
 
-		//selectable breakout session check
-		if(breakoutSession.selectable === true){
-			breakoutSession.selectFinalValues();
-		}
+			//						SPECIAL LOOKUPS OR EXCEPTIONS
 
-		//Phone number validation for it to be a number
-		if(mobileNumber.required === true){
-			mobileNumber.numberValidation();
-		}
+			//travel agreement
+			if($(travelAgreement.id).length){
+				if(travelRequired.inputValue() === true){
+					if(travelAgreement.inputValue() !== true){
+						error += '<li>' + travelAgreement.message + '</li>';
+						travelAgreement.removeFromValidateArray();
+					}
+				}
+			}
 
-		//PROCESSING LOOP
-		if(goingToEvent === true){
+			//flight Check
+			if($(flightBooking.id).length){
+				flightBooking.booked();
+			}
+
+			//selectable breakout session check
+			if(breakoutSession.selectable === true){
+				breakoutSession.selectFinalValues();
+			}
+
+			//Phone number validation for it to be a number
+			if(mobileNumber.required === true){
+				mobileNumber.numberValidation();
+			}
+
+			//PROCESSING LOOP
+		
 			for (var i = 0; i < validateArray.length; i++){
 				if(validateArray[i].required === true){
 					//This is a check to see if ids are set correctly
@@ -603,9 +604,8 @@ $('#mainForm').submit(function(e){
 						}
 					}
 				}
-			}
-		}
-
+			}		
+		}//END OF GOIN TO EVENT
 		//Dev Check
 		if(devError != ''){
 			e.preventDefault();
@@ -679,7 +679,6 @@ $(document).on('click', '.accordion-build', function(){
 	$(this).next().slideToggle(750);
 	$(this).children().toggleClass('show')
 });
-
 
 
 // function openMenu(){
