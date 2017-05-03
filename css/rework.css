@@ -262,6 +262,18 @@ body, input, textarea, button, select {
       margin-bottom: 1em;
       margin: 0 auto; } }
 
+#hero-split {
+  width: 100%; }
+
+#hero-split-img {
+  width: 285px;
+  float: left; }
+
+#hero-split-title {
+  background: #EEEEF0;
+  overflow: hidden;
+  height: 150px; }
+
 #main-logo {
   cursor: pointer;
   display: inline-block;
@@ -291,10 +303,12 @@ body, input, textarea, button, select {
     font-size: 3vmin;
     margin: 0.5em 0 1em;
     white-space: nowrap; }
+    @media (min-width: 768px) and (max-width: 1024px) {
+      #event-title h1 {
+        display: none; } }
     @media (min-width: 768px) {
       #event-title h1 {
-        font-size: 2em;
-        margin: 0 0 0.5em; } }
+        display: none; } }
   #event-title img {
     display: block;
     padding-bottom: 1em; }
@@ -455,6 +469,8 @@ body, input, textarea, button, select {
         padding-left: 1.5em; } }
 
 @media (min-width: 1024px) {
+  .accordion-container .accordion, .accordion-container .accordion-build {
+    width: 100%; }
   .accordion-container .accordion-build {
     width: 100%; }
   .accordion-container .panel {
@@ -900,6 +916,17 @@ body, input, textarea, button, select {
 .float-left {
   float: left; }
 
+.lets-solve-it {
+  display: block;
+  margin: 1em auto 0;
+  width: 200px; }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .lets-solve-it {
+      width: 250px; } }
+  @media (min-width: 768px) {
+    .lets-solve-it {
+      width: 300px; } }
+
 .faded-line {
   margin-top: 1.5em;
   width: 100%;
@@ -942,8 +969,7 @@ p.small-italic {
   margin-bottom: 1em; }
   .closed-event p {
     font-weight: bold;
-    margin-bottom: 1em;
-    padding: 0 0.5em; }
+    margin-bottom: 1em; }
   @media (min-width: 1024px) {
     .closed-event {
       margin: 2em 0 0; } }
@@ -1103,5 +1129,3 @@ ul.sortables {
       -moz-transform: rotate(-135deg);
       -o-transform: rotate(-135deg);
       transform: rotate(-135deg); }
-
-/*# sourceMappingURL=styles.css.map */
