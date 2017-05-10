@@ -262,18 +262,6 @@ body, input, textarea, button, select {
       margin-bottom: 1em;
       margin: 0 auto; } }
 
-#hero-split {
-  width: 100%; }
-
-#hero-split-img {
-  width: 285px;
-  float: left; }
-
-#hero-split-title {
-  background: #EEEEF0;
-  overflow: hidden;
-  height: 150px; }
-
 #main-logo {
   cursor: pointer;
   display: inline-block;
@@ -301,14 +289,11 @@ body, input, textarea, button, select {
     clear: both;
     font-weight: 300;
     font-size: 3vmin;
-    margin: 0.5em 0 1em;
+    margin: 0 0 0.5em;
     white-space: nowrap; }
-    @media (min-width: 768px) and (max-width: 1024px) {
-      #event-title h1 {
-        display: none; } }
     @media (min-width: 768px) {
       #event-title h1 {
-        display: none; } }
+        font-size: 2em; } }
   #event-title img {
     display: block;
     padding-bottom: 1em; }
@@ -330,16 +315,6 @@ body, input, textarea, button, select {
     .register-button:hover span {
       border-right: 3px solid #ED8B00;
       border-bottom: 3px solid #ED8B00; }
-
-#map a {
-  color: #ED8B00;
-  text-decoration: underline; }
-
-@media (min-width: 768px) {
-  #map {
-    height: 400px;
-    display: block;
-    margin-bottom: 1em; } }
 
 /******MODULES******/
 .agenda p {
@@ -444,10 +419,6 @@ body, input, textarea, button, select {
       padding: 1em 2.1em; } }
   .panel p:last-child {
     margin-bottom: 0; }
-
-@media (min-width: 768px) {
-  .multi-event-accordion {
-    display: none; } }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .split-column {
@@ -772,6 +743,14 @@ body, input, textarea, button, select {
     margin: 0 auto;
     padding: 1em 0 0; } }
 
+#form-info a {
+  color: inherit; }
+
+#form-info .small-italic {
+  margin-bottom: 1.5em; }
+  #form-info .small-italic a {
+    text-decoration: underline; }
+
 #accommodation-check {
   display: none; }
 
@@ -871,9 +850,6 @@ body, input, textarea, button, select {
   animation: bounce 0.75s ease-out; }
 
 /******DOCUMENT CLASSES******/
-.address-padding {
-  padding-left: 20px; }
-
 .chevron-arrow-white {
   display: inline-block;
   border-right: 3px solid #fff;
@@ -923,7 +899,7 @@ body, input, textarea, button, select {
   @media (min-width: 768px) and (max-width: 1024px) {
     .lets-solve-it {
       width: 250px; } }
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .lets-solve-it {
       width: 300px; } }
 
@@ -967,6 +943,8 @@ p.small-italic {
   background-color: #EFEDEC;
   padding: 1em 0 1em 1em;
   margin-bottom: 1em; }
+  .closed-event h2 {
+    color: #ED8B00; }
   .closed-event p {
     font-weight: bold;
     margin-bottom: 1em; }
