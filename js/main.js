@@ -9,7 +9,6 @@
 var error = '';
 var goingToEvent;
 var validateArray = [];
-var selectionOrder = [];
 
 /*
 *							OBJECTS
@@ -26,6 +25,11 @@ function AccordionBuilder(header, message){
 	this.beginningHTML = '<div class="accordion-build"><span class="chevron-arrow-orange"></span> <strong>';
 	this.midHTML = '</strong></div><div class="panel"><p>';
 	this.endHTML = '</p></div>';
+	//conditional statement for column stack
+	if($('.split-column').length){
+		this.beginningHTML = '<div class="accordion-container"><div class="accordion-build"><span class="chevron-arrow-orange"></span> <strong>';
+		this.endHTML = '</p></div></div>';
+	}
 	this.accordionValue = function(){
 		return this.beginningHTML + this.header + this.midHTML + this.message + this.endHTML;
 	}
@@ -48,41 +52,49 @@ function InputValidation(id,message){
 	validateArray.push(this);
 }
 
-//Boolean method. Using regex so any question can be asked.
-InputValidation.prototype.inputValue = function(){
-	//checking if this is in the document 
-	if ($(this.id).length){
-		//getting the val
-		var str = $(this.id).val();
-		//checking if it is answered
-		if (str !== null){
-			//Boolean
-			var yes = str.search(/yes/i);
-			if (yes >= 0){
-				return true
-			}else if (yes === -1){
+//Prototypes
+InputValidation.prototype = {
+	inputValue: function(){
+		//checking if this is in the document 
+		if ($(this.id).length){
+			//getting the val
+			var str = $(this.id).val();
+			//checking if it is answered
+			if (str !== null){
+				//Boolean
+				var yes = str.search(/yes/i);
+				if (yes >= 0){
+					return true
+				}else if (yes === -1){
+					return false
+				}
+			} else{
 				return false
 			}
-		} else{
-			return false
 		}
-	}
-}
-
-//Removing this from array
-InputValidation.prototype.removeFromValidateArray = function(){
-	var removeThis = validateArray.indexOf(this);
-	validateArray.splice(removeThis, 1);
-}
-
-//RegEx for phone numbers
-InputValidation.prototype.numberValidation = function(){
-	var regEx = new RegExp(/^[+]?([0-9]*[\.\s\-\(\)]|[0-9]+){3,24}$/);
-	var value = $(this.id).val();
-	if (value != ''){
-		var testing = regEx.test(value);
-		if (testing === false){
-			error += '<li>Phone number must be a valid number</li>';
+	},
+	removeFromValidateArray:function(){
+		var removeThis = validateArray.indexOf(this);
+		validateArray.splice(removeThis, 1);
+	},
+	numberValidation: function(){
+		var regEx = new RegExp(/^[+]?([0-9]*[\.\s\-\(\)]|[0-9]+){3,24}$/);
+		var value = $(this.id).val();
+		if (value != ''){
+			var testing = regEx.test(value);
+			if (testing === false){
+				error += '<li>Phone number must be a valid number</li>';
+			}
+		}
+	},
+	emailValidation: function(){
+		var regEx = new RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+		var value = $(this.id).val();
+		if (value != ''){
+			var testing = regEx.test(value);
+			if (testing === false){
+				error += '<li>Email addres must be valid</li>';
+			}
 		}
 	}
 }
@@ -120,6 +132,244 @@ groundTransportationDeparture = new InputValidation('#Ground_Transportation_Depa
 
 RSVPStatus.required = true;
 RSVPStatus.removeFromValidateArray();
+
+/*
+*							BREAKOUT SESSION EVENTS
+*/
+
+
+//Mother Breakouts Object
+var Breakouts = function Breakouts(breakouts, inputs){
+	this.breakouts = breakouts;
+	this.inputs = inputs;
+	this.selectionOrder = [];
+	this.accordionDiv = '.breakout-accordion';
+}
+
+//Prototype Functions Breakouts
+Breakouts.prototype = {
+	//Boolean of if this is a returning user or not
+	returningUser: function(){
+		var endOfInputs = this.inputs.length - 1;
+		if($(this.inputs[endOfInputs]).val() != ''){
+			//Emptying the selection order
+			this.selectionOrder = [];
+			//Pushing the selections into the selection order array
+			for(var i = 0; i < this.inputs.length; i++){
+				this.selectionOrder.push($(this.inputs[i]).val());
+			}
+			return true
+		}else{
+			return false
+		}
+	},
+	//Function for removing answers
+	emptyInputs: function(){
+		for(var i = 0; i < this.inputs.length; i++){
+			$(this.inputs[i]).val('');
+		}
+	}
+}
+
+/*
+*							SORTABLE UI
+*/
+
+//Child Object for Sorting
+var SortBreakouts = function SortBreakouts(breakouts, inputs){
+	Breakouts.call(this,breakouts,inputs);
+	this.div = '#sortable';
+}
+
+//HTML markup
+//Insuring the inheritance with Breakouts For EL5 based broswers
+SortBreakouts.prototype = Object.create(Breakouts.prototype,{
+	HTML:{
+		value:function(header,id){
+			return '<li class="ui-state-default" id="' + id +'"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>' + header + '</li>';		
+		}
+	},
+	//Get the value of the selections and pushes it into the selectionOrder. 
+	sortableInputValues:{
+		value:function(){
+			//refreshing the selection order
+			this.selectionOrder = [];
+			for (var i = 0; i < this.inputs.length; i++){
+				this.selectionOrder.push($(this.inputs[i]).val());
+			}
+		}
+	},
+	finalValues:{
+		value:function(){
+			var inputs = this.inputs,
+			div = this.div,
+			selections = this.sortableInputValues()
+			selectionOrder = this.selectionOrder;
+			if(selections[0] == ''){
+				selectionOrder = $(div).sortable('toArray');
+				for(var i = 0; i < inputs.length; i++){
+					$(inputs[i]).val(selectionOrder[i]);
+				}
+			}
+		}
+	}
+});
+
+//sorting Initalization
+function sortInit(breakouts,newInputs,newDiv,newAccordionDiv){
+	var buildSort = function(){
+		//Adding accordions
+		if($(this.accordionDiv).length){
+			breakoutAccordions.call(this);
+		}
+		//Checking if this is a returning user
+		if(this.returningUser() === true){
+			this.sortableInputValues();
+			sortArrayById(this.breakouts,this.selectionOrder);
+		}
+		//Adding to DOM
+		breakoutBuilder.call(this);
+	}
+	if(breakouts === undefined){
+		var sortBreakout = new SortBreakouts(breakoutSessions,inputs);
+	}else{
+		//Multiple breakouts
+		var sortBreakout = new SortBreakouts(breakouts,newInputs);
+		if(newDiv !== undefined){
+			sortBreakout.div = newDiv;
+		}
+		if(newAccordionDiv !== undefined){
+			sortBreakout.accordionDiv = newAccordionDiv;
+		}
+	}
+	buildSort.call(sortBreakout);
+	//jquery UI initalizing
+	$(sortBreakout.div).sortable({
+		placeholder: 'ui-state-active',
+		//pushing the values into the inputs
+		stop: function(event,ui){
+			sortBreakout.selectionOrder = $(sortBreakout.div).sortable('toArray');
+			for(var i = 0; i < sortBreakout.inputs.length; i++){
+				$(sortBreakout.inputs[i]).val(sortBreakout.selectionOrder[i]);
+			}
+		}
+	});
+	return sortBreakout;
+}
+/*
+*							SELECTABLE UI
+*/
+
+//Child Object for selecting
+var SelectBreakouts = function SelectBreakouts(breakouts,inputs){
+	Breakouts.call(this, breakouts,inputs);
+	this.div = '#selectable';
+	this.message = '';
+}
+
+//HTML markup
+//Insuring the inheritance with Breakouts For EL5 based broswers
+SelectBreakouts.prototype = Object.create(Breakouts.prototype,{
+	HTML:{
+		value:function(header, id){
+			if(this.returningUser() === true){
+				//Updating the 'checked' if returning user had checked it
+				var index = this.selectionOrder.indexOf(id);
+				if(index >= 0){
+					//It's been checked
+					this.beginningHTML = '<input type="checkbox" checked name="';
+				}else{
+					//It hasn't been checked
+					this.beginningHTML = '<input type="checkbox" name="';
+				}
+			}else{
+				//Starting fresh
+				this.beginningHTML = '<input type="checkbox" name="';
+			}
+			//Returning the final string
+			return this.beginningHTML + id + '" id="' + id + '"><label for="' + id + '">' + header + '</label>';
+		}
+	},
+	finalValues:{
+		value:function(){
+			//Emptying the inputs
+			this.emptyInputs();
+			//Emptying out the selection order
+ 			this.selectionOrder = [];
+ 			//Grabbing the selections
+	 		this.breakouts.forEach(function(breakout){
+				if($('input[name="' + breakout.id + '"]').is(':checked') === true){
+					this.selectionOrder.push(breakout.id);
+				}
+			},this);
+			//Pushing the selected answers
+			for (var i=0; i < this.selectionOrder.length; i++){
+				$(this.inputs[i]).val(this.selectionOrder[i]);
+			}
+			//Making sure at least the min amount of breakouts sessions are selected
+			var endOfInputs = this.inputs.length - 1;
+			if($(this.inputs[endOfInputs]).val() == ''){
+				//Adding to the global variable error
+				error += '<li>' + this.message + '</li>';
+			}
+		}	
+	}
+});
+
+//selection Initalizing
+function selectInit(limit, breakouts, newInputs, newDiv, newAccordionDiv){
+	//clouser function
+	var buildSelect = function(){
+		//editing the message to be dynamic
+		this.message = 'Please select at least ' +  limit + ' sessions';
+		//Building Accordions
+		if ($(this.accordionDiv).length){
+			breakoutAccordions.call(selectBreakout);
+		}
+		//Adding to DOM
+		breakoutBuilder.call(this);
+		//Limiting the amount of checkboxes to check
+		$(this.div + ' input').on('change', function(e){
+			if($(this).siblings(':checked').length >= limit){
+				this.checked = false;
+			}
+		});
+	}
+	if(breakouts == undefined){
+		//Single breakouts
+		var selectBreakout = new SelectBreakouts(breakoutSessions, inputs);
+		//highjacking Input validation breakoutSession to call on form submit
+		breakoutSession = selectBreakout
+		breakoutSession.breakoutUI = 'select'
+	}else{
+		//multiple breakouts
+		var selectBreakout = new SelectBreakouts(breakouts,newInputs);
+		if(newDiv !== undefined){
+			selectBreakout.div = newDiv;
+		}
+		if(newAccordionDiv !== undefined){
+			selectBreakout.accordionDiv = newAccordionDiv;
+		}
+	}
+	//Calling the clouser
+	buildSelect.call(selectBreakout);
+	return selectBreakout
+}
+
+//Making Accordion Boxes
+function breakoutAccordions(){
+	this.breakouts.forEach(function(breakout){
+		var breakoutAccordion = new AccordionBuilder(breakout.header,breakout.message);
+		breakoutAccordion.buildAccordion(this.accordionDiv);
+	},this);
+}
+
+//HTML builder
+function breakoutBuilder(){
+	this.breakouts.forEach(function(breakout){
+		$(this.div).append(this.HTML(breakout.header,breakout.id));
+	},this);
+}
 
 /*
 *							FUNCTIONS
@@ -164,7 +414,7 @@ function contentDisplay(link){
 	$('.register-button').show();
 	$('#form').hide();
 	$('.left-side').show();
-	$('.side-info').show();
+	$('div[class^="side-info').show();
 	//Adding the orange underline
 	$('.nav a').removeClass('menu-active');
 	$('.nav a').eq(link).addClass('menu-active');
@@ -206,12 +456,19 @@ function errorDivBuilder(message){
 
 //Opening Registration
 function openRegistrationForm(){
-	$('.content').hide();
-	$('.left-side').hide();
-	$('.side-info').hide();
-	$('#form').show();
-	$('.register-button').hide();
-	$('.nav a').removeClass('menu-active');
+	if($('.registration').length){
+		//For menu based sites
+		$('.content').hide();
+		$('.left-side').hide();
+		$('div[class^="side-info').hide();
+		$('#form').show();
+		$('.register-button').hide();
+		$('.nav a').removeClass('menu-active');	
+	}else if($('.registration-slide')){
+		//For accordion based sites
+		$('#form').show();
+		$('html, body').animate({scrollTop: $('#form').offset().top},700);
+	}
 }
 
 //Scroll to anchor hash only if it is a hash
@@ -235,7 +492,7 @@ function scroll_if_anchor(href){
 //URL based contentDisplay
 function contentOpening(){
 	var tab = unescape(getQueryVariableOfURL('tab'));
-	if (tab == 'regnow'){
+	if ((tab == 'regnow') || (tab == 'register')){
 		openRegistrationForm();
 	}else if(tab === 'decline'){
 		openRegistrationForm();
@@ -245,193 +502,43 @@ function contentOpening(){
 	}
 }
 
-/*
-*							SORTABLE UI FOR BREAKOUT SESSIONS
-*/
+//Dynamically split into columns
+function columnSpliter(){
+	var numCols = 2, //Can be changed to 3 or 4 columns
+	container = $('.split-column'),//location on document. Must be added to HTML
+    //location on document. Must be added to HTML
+	listItem = $('.accordion-container'),
+	listClass = 'sub-column',
+	perCentWidth = Math.floor((10/numCols) * 10);
 
-//Get the value of the selections. Var inputs is on the breakout session page
-function sortableInputValues(inputs){
-	//pushing the input values from the breakout session data page into the array
-	var selections = [];
-	for (var i = 0; i < inputs.length; i++){
-		selections.push($(inputs[i]).val());
-	}
-	return selections
-}
-
-//Mother Objects
-function sortableSelections(breakoutSessions, inputs){
-	//DOM controlls
-	this.listart = '<li class="ui-state-default" id="';
-	this.limid = '"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>';
-	this.liclose = '</li>';
-	this.uiDiv = '#sortable';
-	this.infoDiv = '.breakout-accordion';
-	this.breakouts = breakoutSessions;
-	this.inputs = inputs;
-}
-
-//DOM and UI initialization prototype
-sortableSelections.prototype.buildingSortableList = function(){
-	var div = this.uiDiv;
-	var listart = this.listart;
-	var limid = this.limid;
-	var liclose = this.liclose;
-	var inputs = this.inputs;	
-	this.breakouts.forEach(function(breakouts){
-		$(div).append(listart + breakouts.id + limid + breakouts.header + liclose);
-	});
-	//jquery ui initialize
-	$(div).sortable({
-		placeholder: "ui-state-active",
-		//pushing values into the inputs
-		stop: function(event, ui){
-			selectionOrder = $(div).sortable('toArray');
-			for (var i = 0; i <inputs.length; i++){
-				$(inputs[i]).val(selectionOrder[i]);
+	container.each(function(){
+		var itemsPerCol = [],
+		items = $(this).find(listItem),
+		minItemsPerCol = Math.floor(items.length / numCols),
+		difference = items.length - (minItemsPerCol * numCols);
+		//Doing Math to shuffle the correct amount of per Column
+		for(var i = 0; i < numCols; i++){
+			if(i < difference){
+				itemsPerCol[i] = minItemsPerCol + 1;
+			}else{
+				itemsPerCol[i] = minItemsPerCol;
 			}
 		}
-	});
-}
-
-//Safeguard for pushing values into inputs
-sortableSelections.prototype.finalValues = function(){
-	var inputs = this.inputs;
-	var div = this.uiDiv;
-	var selections = sortableInputValues(inputs);
-	if(selections[0] == ''){
-		selectionOrder = $(div).sortable('toArray');
-		for (var i = 0; i <inputs.length; i++){
-			$(inputs[i]).val(selectionOrder[i]);
-		}
-	}
-}
-
-function sortInit(sortable){
-	try{
-		//Checking if they're multiple sorts
-		if(typeof(sortable) === 'undefined'){
-			//creating new sortableSelections
-			sortable = new sortableSelections(breakoutSessions, inputs);
-			sortable.single = true;
-		}
-	}catch(err){
-		return errorDivBuilder(err.message);
-	}
-	
-
-	//Makes informational accordions for each of the breakouts. To use add a div with a class of breakout-accordion
-	//You can use this as many times in the doc as you want.   
-	if($('.breakout-accordion').length){
-		var breakouts = sortable.breakouts;
-		breakouts.forEach(function(breakout){
-			//On the breakouts data array, make an attribute of message for the info in the panels of the accordion
-			var sortAccordion = new AccordionBuilder(breakout.header, breakout.message);
-			sortAccordion.buildAccordion('.breakout-accordion');
-		});
-	}
-
-	//Grabbing the values in the inputs
-	selectionOrder = sortableInputValues(sortable.inputs);
-	//Checking if this is a returning user
-	if(selectionOrder[0] == ''){
-		sortable.buildingSortableList();
-	}else{
-		//Returning user, Reordering breakouts by selectionOrder
-		sortArrayById(sortable.breakouts, selectionOrder);
-		//Building the DOM by users selections
-		sortable.buildingSortableList();
-	}
-
-	//sortable breakout sessions check
-	if(sortable.single === true){
-		sortable.finalValues();
-	}
-}
-
-/*
-*							SELECTABLE UI FOR BREAKOUT SESSIONS
-*/
-
-//Mother Object
-function BreakoutInputs(header, id){
-	this.header = header;
-	this.id = id;
-	this.beginningHTML = '<input type="checkbox" name="';
-	this.makeCheckbox = function(){
-		return this.beginningHTML + this.id + '" id="' + this.id + '"><label for="' + this.id + '">' + this.header + '</label>';
-	}
-}
-
-BreakoutInputs.prototype.buildCheckbox = function(div){
-	$(div).append(this.makeCheckbox());
-}
-
-function selectInit(limit){
-	var returningUser = false;
-	var endOfInputs = inputs.length - 1;
-	//Checking initinal State
-	if ($(inputs[endOfInputs]).val() != ''){
-		//Returning user, emptying the global varaible selectionOrder
-		selectionOrder = [];
-		//populating the users privious selections
-		for (var i = 0; i < inputs.length; i++){
-			selectionOrder.push($(inputs[i]).val());
-		}
-		returningUser = true;
-	}
-	//Building Content
-	breakoutSessions.forEach(function(breakout){
-		var header, message, breakoutId, breakoutAccordion, breakoutContent, breakoutSelections;
-		//html markup
-		header = breakout.header;
-		message = breakout.message;
-		breakoutId = breakout.id;
-		//if you want the info to be on the document as accordions
-		if($('.breakout-accordion').length){
-			breakoutAccordion = new AccordionBuilder(header, message);
-			breakoutAccordion.buildAccordion('.breakout-accordion');
-		}
-		//If you just the info to be on the document as text
-		if ($('#breakout-info').length){
-			breakoutContent = new AccordionBuilder(header, message);
-			breakoutContent.beginningHTML = '<strong>';
-			breakoutContent.midHTML = '</strong><br>';
-			breakoutContent.endHTML = '<br><br>';
-			breakoutContent.buildAccordion('#breakout-info');
-		}
-		//Building the checkboxes
-		breakoutCheckboxes = new BreakoutInputs(header, breakoutId);
-		if(returningUser === true){
-			var index = selectionOrder.indexOf(breakoutId);
-			if (index >= 0){
-				breakoutCheckboxes.beginningHTML = '<input type="checkbox" checked name="';
+		//Builds a div and populates it with the accordion divs
+		for(var i = 0; i < numCols; i++){
+			$(this).append($('<div></div>').addClass(listClass));
+			for(var j = 0; j < itemsPerCol[i]; j++){
+				var pointer = 0;
+				for(var k = 0; k < i; k++){
+					pointer += itemsPerCol[k];
+				}
+				$(this).find('.' + listClass).last().append(items[j + pointer]);
 			}
 		}
-		console.log(breakoutCheckboxes.header);
-		console.log(breakoutCheckboxes.beginningHTML);
-		breakoutCheckboxes.buildCheckbox('#selectable');
-	});
-	//limiting the amount of checkboxes to check
-	$('#selectable input').on('change', function(e){
-		if($(this).siblings(':checked').length >= limit){
-			this.checked = false;
-		}
-	});
-	breakoutSession.selectable = true;
-}
 
-//Final Values. Working off of the InputValidation object not BreakoutInputs
-breakoutSession.selectFinalValues = function(){
-	selectionOrder = [];
-	breakoutSessions.forEach(function(breakout){
-		if($('input[name="' + breakout.id + '"]').is(':checked') === true){
-			selectionOrder.push(breakout.id);
-		}
+		//Some CSS fixes
+		
 	});
-	for (var i = 0; i < selectionOrder.length; i++){
-		$(inputs[i]).val(selectionOrder[i]);
-	}
 }
 
 /*
@@ -471,8 +578,7 @@ $('.registration').click(function(){
 
 //Registration button click on accordion or other non content based events
 $('.registration-slide').click(function(){
-	$('#form').show();
-	$('html, body').animate({scrollTop: $('#form').offset().top},700);
+	openRegistrationForm()
 });
 
 //Conditional to show form based on RSVP status
@@ -578,14 +684,14 @@ $('#mainForm').submit(function(e){
 				flightBooking.booked();
 			}
 
-			//selectable breakout session check
-			if(breakoutSession.selectable === true){
-				breakoutSession.selectFinalValues();
-			}
-
 			//Phone number validation for it to be a number
 			if(mobileNumber.required === true){
 				mobileNumber.numberValidation();
+			}
+
+			//Breakout UI final Values
+			if(breakoutSession.breakoutUI === 'select'){
+				breakoutSession.finalValues();
 			}
 
 			//PROCESSING LOOP
@@ -605,7 +711,7 @@ $('#mainForm').submit(function(e){
 					}
 				}
 			}		
-		}//END OF GOIN TO EVENT
+		}//END OF GOING TO EVENT
 		//Dev Check
 		if(devError != ''){
 			e.preventDefault();
@@ -637,9 +743,6 @@ $('#mainForm').submit(function(e){
 */
 
 $(function(){
-	//Calculating the height of class main
-	$('.main').css({'padding-top': ($('.header').height() + 25)});
-
 	//Starting out the document with the welcome screen unless it is requested to registration by URL
 	contentOpening();
 	//Populating the RSVP status
@@ -670,6 +773,16 @@ $(function(){
 });
 
 /*
+*							WINDOW LOADED FUNCTIONS
+*/	
+
+$(window).on('load', function(){
+	//Calculating the height of class main
+	$('.main').css({'padding-top': ($('.header').height() + 25)});
+});
+
+
+/*
 *							DYNAMIC CREATED ITEMS EVENTS
 */
 
@@ -679,40 +792,3 @@ $(document).on('click', '.accordion-build', function(){
 	$(this).next().slideToggle(750);
 	$(this).children().toggleClass('show')
 });
-
-
-// function openMenu(){
-// 	$('.nav li').toggleClass('menu-open');
-// 	$('#hamburger-menu').toggleClass('menu-open');
-// }
-
-
-
-
-// 					//DOCUMENT READY
-
-// $(function(){
-// 	$(".container").css("min-height",$(window).height());
-
-
-	
-// });//end of doc ready
-
-// $('#hamburger-menu').click(function(){
-// 	openMenu();
-// });
-
-// $('.nav a').click(function(){
-// 	openMenu();
-// 	var hash = this.hash;
-// 	$('html, body').animate({scrollTop: $(hash).offset().top}, 700, function() {
-//  	   	window.location.hash = hash;
-//  	});
-// });
-
-
-
-
-
-
-
