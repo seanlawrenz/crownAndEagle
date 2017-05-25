@@ -201,11 +201,12 @@ SortBreakouts.prototype = Object.create(Breakouts.prototype,{
 	},
 	finalValues:{
 		value:function(){
+			//populating selectionOrder to the user made selections
+			this.sortableInputValues();
 			var inputs = this.inputs,
 			div = this.div,
-			selections = this.sortableInputValues()
 			selectionOrder = this.selectionOrder;
-			if(selections[0] == ''){
+			if(selectionOrder[0] == ''){
 				selectionOrder = $(div).sortable('toArray');
 				for(var i = 0; i < inputs.length; i++){
 					$(inputs[i]).val(selectionOrder[i]);
@@ -254,6 +255,8 @@ function sortInit(breakouts,newInputs,newDiv,newAccordionDiv){
 			}
 		}
 	});
+	//Just throwing the final values in so it starts with the default values
+	sortBreakout.finalValues();
 	return sortBreakout;
 }
 /*
