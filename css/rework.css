@@ -277,6 +277,19 @@ body, input, textarea, button, select {
     .regular-header {
       text-align: left; } }
 
+@media (min-width: 768px) {
+  .two-column {
+    overflow: hidden;
+    width: 100%;
+    font-size: 0; }
+    .two-column section {
+      font-size: 14px;
+      box-sizing: border-box;
+      display: inline-block;
+      width: 50%;
+      padding: 0 1em;
+      vertical-align: top; } }
+
 /******THEME LAYOUTS******/
 #hero-img {
   display: none; }
