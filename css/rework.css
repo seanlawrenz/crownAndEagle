@@ -316,6 +316,19 @@ body, input, textarea, button, select {
       padding: 0 1em;
       vertical-align: top; } }
 
+@media (min-width: 768px) {
+  .three-column {
+    overflow: hidden;
+    width: 100%;
+    font-size: 0; }
+    .three-column section {
+      font-size: 14px;
+      box-sizing: border-box;
+      display: inline-block;
+      width: 33%;
+      padding: 0 1em;
+      vertical-align: top; } }
+
 /******THEME LAYOUTS******/
 #hero-img {
   display: none; }
@@ -810,13 +823,22 @@ body, input, textarea, button, select {
     margin: 0 auto;
     padding: 1em 0 0; } }
 
-#form-info a {
+#form-info a, #form-info-582c83 a, #form-info-828838 a, #form-info-649099 a {
   color: inherit; }
 
-#form-info .small-italic {
+#form-info .small-italic, #form-info-582c83 .small-italic, #form-info-828838 .small-italic, #form-info-649099 .small-italic {
   margin-bottom: 1.5em; }
-  #form-info .small-italic a {
+  #form-info .small-italic a, #form-info-582c83 .small-italic a, #form-info-828838 .small-italic a, #form-info-649099 .small-italic a {
     text-decoration: underline; }
+
+#form-info-582c83 h2 {
+  color: #582C83; }
+
+#form-info-828838 h2 {
+  color: #828838; }
+
+#form-info-649099 h2 {
+  color: #649099; }
 
 #accommodation-check {
   display: none; }
